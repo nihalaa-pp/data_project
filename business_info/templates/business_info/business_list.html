@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 180px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #5bc0de;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #31b0d5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        td {
+            color: #555;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #5bc0de;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background-color: #31b0d5;
+            text-decoration: underline;
+        }
+
+        .actions a {
+            margin-right: 10px;
+        }
+
+        .add-business {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0275d8;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .add-business:hover {
+            background-color: #025aa5;
+        }
+
+        .no-business {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        .logout-link {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .logout-link a {
+            padding: 10px 15px;
+            background-color: green; 
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .logout-link a:hover {
+            background-color: #c9302c; 
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            input, select, button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .add-business {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Business List</h1>
+    <div class="logout-link">
+        {% if user.is_authenticated %}
+            <a href="{% url 'contacts:logout' %}">Logout</a>
+        {% endif %}
+    </div>
+    <form method="GET" action="{% url 'business_info:business_list' %}">
+        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+    
+        <select name="country">
+            <option value="">Select Country</option>
+            {% for country in countries %}
+            <option value="{{ country }}" {% if country == filter_country %}selected{% endif %}>{{ country }}</option>
+            {% endfor %}
+        </select>
+    
+        <select name="state">
+            <option value="">Select State</option>
+            {% for state in states %}
+            <option value="{{ state }}" {% if state == filter_state %}selected{% endif %}>{{ state }}</option>
+            {% endfor %}
+        </select>
+    
+        <select name="town">
+            <option value="">Select Town</option>
+            {% for town in towns %}
+            <option value="{{ town }}" {% if town == filter_town %}selected{% endif %}>{{ town }}</option>
+            {% endfor %}
+        </select>
+    
+        <button type="submit">Filter</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>State</th>
+                <th>Town</th>
+                <th>Name of Firm</th>
+                <th>Location</th>
+                <th>Landmark</th>
+                <th>Website URL</th>
+                <th>Level</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Actions</th>
+                <th>Contact Person Name</th>
+                <th>Designation</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if businesses %}
+                {% for business in businesses %}
+                    {% if business.contact_persons.all %}
+                        {% for contact in business.contact_persons.all %}
+                            <tr>
+                                {% if forloop.first %}
+                                    <td>{{ business.country }}</td>
+                                    <td>{{ business.state }}</td>
+                                    <td>{{ business.town }}</td>
+                                    <td>{{ business.name_of_firm|default:"N/A" }}</td>
+                                    <td>{{ business.location }}</td>
+                                    <td>{{ business.landmark }}</td>
+                                    <td>{{ business.website_url|default:"N/A" }}</td>
+                                    <td>{{ business.level }}</td>
+                                    <td>{{ business.type }}</td>
+                                    <td>{{ business.category }}</td>
+                                {% else %}
+                                    <td colspan="10"></td> <!-- Empty for subsequent contacts -->
+                                {% endif %}
+                                <td>{{ contact.name|default:"N/A" }}</td>
+                                <td>{{ contact.designation|default:"N/A" }}</td>
+                                <td>{{ contact.mobile_number|default:"N/A" }}</td>
+                                <td>{{ contact.email|default:"N/A" }}</td>
+                                <td>
+                                    <a href="{% url 'business_info:edit_business' business.id %}">Edit</a> | 
+                                    <a href="{% url 'business_info:delete_business' business.id %}">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>{{ business.country }}</td>
+                            <td>{{ business.state }}</td>
+                            <td>{{ business.town }}</td>
+                            <td>{{ business.name_of_firm|default:"N/A" }}</td>
+                            <td>{{ business.location }}</td>
+                            <td>{{ business.landmark }}</td>
+                            <td>{{ business.website_url|default:"N/A" }}</td>
+                            <td>{{ business.level }}</td>
+                            <td>{{ business.type }}</td>
+                            <td>{{ business.category }}</td>
+                            <td colspan="4">No contact person available</td>
+                            <td>
+                                <a href="{% url 'business_info:edit_business' business.id %}">Edit</a> | 
+                                <a href="{% url 'business_info:delete_business' business.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="17">No businesses found.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    
+
+    <a class="add-business" href="{% url 'business_info:add_business' %}">Add New Business</a>
+    <a href="{% url 'business_info:add_business' %}" class="back-button">Back to Add Contact</a>

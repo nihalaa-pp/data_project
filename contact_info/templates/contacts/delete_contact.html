@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h2>Delete Contact</h2>
+<p>Are you sure you want to delete {{ contact.name }}?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'contacts:contact_list' %}">No, Go Back</a>
+</form>
+<style>
+    .delete-form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #d9534f; /* Bootstrap danger color */
+    }
+
+    p {
+        margin: 15px 0;
+        font-size: 1.1em;
+    }
+
+    .delete-button {
+        background-color: #d9534f; /* Bootstrap danger color */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .delete-button:hover {
+        background-color: #c9302c;
+    }
+
+    .cancel-link {
+        color: #5bc0de; /* Bootstrap info color */
+        text-decoration: none;
+    }
+
+    .cancel-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Media Queries */
+    @media (max-width: 600px) {
+        .delete-form {
+            padding: 15px;
+        }
+
+        .delete-button {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        p {
+            font-size: 1em;
+        }
+    }
+</style>
+{% endblock %}

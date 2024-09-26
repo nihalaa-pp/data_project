@@ -1,0 +1,232 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h2>Contact List</h2>
+
+
+<!-- Search and Filter Form -->
+<form method="GET" action="{% url 'contacts:contact_list' %}" class="search-form">
+    <input type="text" name="q" value="{{ search_query }}" placeholder="Search contacts...">
+    <select name="native_place">
+        <option value="">Native Place</option>
+        {% for place in native_places %}
+            <option value="{{ place }}" {% if place == selected_native_place %}selected{% endif %}>{{ place }}</option>
+        {% endfor %}
+    </select>
+    <select name="category">
+        <option value="">Category</option>
+        {% for cat in categories %}
+            <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+    </select>
+    <select name="profession">
+        <option value="">Profession</option>
+        {% for prof in professions %}
+            <option value="{{ prof }}" {% if prof == selected_profession %}selected{% endif %}>{{ prof }}</option>
+        {% endfor %}
+    </select>
+    <select name="source">
+        <option value="">Source</option>
+        {% for src in sources %}
+            <option value="{{ src }}" {% if src == selected_source %}selected{% endif %}>{{ src }}</option>
+        {% endfor %}
+    </select>
+    <select name="scope">
+        <option value="">Scope</option>
+        {% for sc in scopes %}
+            <option value="{{ sc }}" {% if sc == selected_scope %}selected{% endif %}>{{ sc }}</option>
+        {% endfor %}
+    </select>
+    <select name="status">
+        <option value="">Status</option>
+        {% for stat in statuses %}
+            <option value="{{ stat }}" {% if stat == selected_status %}selected{% endif %}>{{ stat }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<table class="contact-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Profession</th>
+            <th>Date of Birth</th>
+            <th>Year Connected</th>
+            <th>Source</th>
+            <th>Working Place</th>
+            <th>Native Place</th>
+            <th>Mobile Number</th>
+            <th>WhatsApp Number</th>
+            <th>Email</th>
+            <th>Scope</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.category }}</td>
+            <td>{{ contact.profession }}</td>
+            <td>{{ contact.dob }}</td>
+            <td>{{ contact.connected_year }}</td>
+            <td>{{ contact.connected_source }}</td>
+            <td>{{ contact.working_place }}</td>
+            <td>{{ contact.native_place }}</td>
+            <td>{{ contact.mobile_number }}</td>
+            <td>{{ contact.whatsapp_number }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.scope }}</td>
+            <td>{{ contact.status }}</td>
+            <td>
+                <a href="{% url 'contacts:edit_contact' contact.pk %}">Edit</a> |
+                <a href="{% url 'contacts:delete_contact' contact.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="13">No contacts found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'contacts:add_contact' %}" class="add-contact-button">Add New Contact</a>
+<!-- Back Button -->
+<a href="{% url 'business_info:add_business' %}" class="back-button">Back to Add Contact</a>
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 15px;
+        background-color: #5bc0de;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+        background-color: #31b0d5;
+    }
+
+    .search-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .search-form input, 
+    .search-form select, 
+    .search-form button {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #5bc0de;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #31b0d5;
+    }
+
+    .contact-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    td {
+        color: #555;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .add-contact-button {
+        display: inline-block;
+        margin: 20px 0;
+        padding: 10px 15px;
+        background-color: #5bc0de;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .add-contact-button:hover {
+        background-color: #31b0d5;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+        .contact-table {
+            font-size: 0.9em;
+        }
+
+        .contact-table th, .contact-table td {
+            padding: 6px;
+        }
+
+        .add-contact-button {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-table {
+            font-size: 0.8em;
+        }
+
+        .add-contact-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
