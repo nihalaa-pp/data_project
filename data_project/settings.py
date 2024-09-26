@@ -62,7 +62,14 @@ WSGI_APPLICATION = 'data_project.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'data_project',      # Replace with your PostgreSQL database name
+        'USER': 'admin2',      # Replace with your PostgreSQL username
+        'PASSWORD': 'admin@123', # Replace with your PostgreSQL password
+        'HOST': 'localhost',         # Use 'localhost' if PostgreSQL is running locally, or the appropriate server
+        'PORT': '5432',              # Default PostgreSQL port
+    }
 }
 
 # Password validation
