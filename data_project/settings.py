@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import dj_database_url
+import dj_database_url  # Import for parsing the database URL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt)+gm9_7p_+$rw*)fusv
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts — make sure the URL is correct for Render
-ALLOWED_HOSTS = ['data_project.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['data-project-gpni.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -62,14 +62,7 @@ WSGI_APPLICATION = 'data_project.wsgi.application'
 
 # Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'data_project',      # Replace with your PostgreSQL database name
-        'USER': 'admin2',      # Replace with your PostgreSQL username
-        'PASSWORD': 'admin@123', # Replace with your PostgreSQL password
-        'HOST': 'localhost',         # Use 'localhost' if PostgreSQL is running locally, or the appropriate server
-        'PORT': '5432',              # Default PostgreSQL port
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))  # Use dj_database_url for production
 }
 
 # Password validation
@@ -128,4 +121,3 @@ LOGGING = {
         'level': 'INFO',  # Set to 'DEBUG' for more verbose output
     },
 }
-
