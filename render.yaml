@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: data_project
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn data_project.wsgi --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEBUG
+        value: "False"  # Set to "True" for local testing only
+      - key: 'django-insecure-vt)+gm9_7p_+$rw*)fusvzo9ah8b8o6fe0aj%q49(je)w*h4)e'
+        value: your-secret-key

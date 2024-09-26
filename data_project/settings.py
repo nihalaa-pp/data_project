@@ -12,22 +12,21 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url  # Make sure to install this package
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vt)+gm9_7p_+$rw*)fusvzo9ah8b8o6fe0aj%q49(je)w*h4)e'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt)+gm9_7p_+$rw*)fusvzo9ah8b8o6fe0aj%q49(je)w*h4)e')  # Use environment variable
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # Use environment variable
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['data_project.onrender.com', 'localhost', '127.0.0.1']  # Add your Render URL
 
 # Application definition
 
@@ -50,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'data_project.urls'
@@ -73,17 +72,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'data_project.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# Use DATABASE_URL environment variable for production
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -103,7 +96,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -115,18 +107,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_URL = '/static/'  # Make sure to use a leading slash
 
-STATIC_URL = 'static/'
+# Define where static files should be collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This is important for deployment
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Login URLs
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/contacts/contact_list/'  # Redirect after login
 LOGOUT_REDIRECT_URL = '/'
