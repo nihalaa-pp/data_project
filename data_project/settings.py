@@ -15,7 +15,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt)+gm9_7p_+$rw*)fusv
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts — make sure the URL is correct for Render
-ALLOWED_HOSTS = ['data-project-gpni.onrender.com', 'localhost', '127.0.0.1']
+# Allowed hosts — make sure the URL is correct for Render
+ALLOWED_HOSTS = ['data-project-vm7p.onrender.com', 'data-project-gpni.onrender.com', 'localhost', '127.0.0.1']
+
 
 # Application definition
 INSTALLED_APPS = [
