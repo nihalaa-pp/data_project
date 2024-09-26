@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt)+gm9_7p_+$rw*)fusv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # Use environment variable
 
-ALLOWED_HOSTS = ['data_project4.onrender.com', 'localhost', '127.0.0.1']  # Add your Render URL
+ALLOWED_HOSTS = ['data_project5.onrender.com', 'localhost', '127.0.0.1']  # Add your Render URL
 
 # Application definition
 
