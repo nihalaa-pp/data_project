@@ -16,8 +16,11 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Allowed hosts — make sure the URL is correct for Render
 # Allowed hosts — make sure the URL is correct for Render
-ALLOWED_HOSTS = ['data-project-vm7p.onrender.com', 'data-project-gpni.onrender.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = [
+    'data-project-nt7w.onrender.com',  # Add this Render domain
+    'localhost',
+    '127.0.0.1',
+]
 
 # Application definition
 INSTALLED_APPS = [
