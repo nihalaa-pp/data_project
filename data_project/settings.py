@@ -1,26 +1,26 @@
 from pathlib import Path
 import os
-import dj_database_url  # Import for parsing the database URL
+import environ
+import dj_database_url
+
+
+# Initialise environment variables
+# Add this for environment variable management
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Ensure .env file is loaded
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vt)+gm9_7p_+$rw*)fusvzo9ah8b8o6fe0aj%q49(je)w*h4)e')
-
+SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get("DEBUG","FALSE" ).lower() == "True"
 
-# Allowed hosts — make sure the URL is correct for Render
-# Allowed hosts — make sure the URL is correct for Render
-ALLOWED_HOSTS = ['data-project-463m.onrender.com', 'localhost', '127.0.0.1']
-
-
-
-
+# Allowed hosts — dynamically handled from environment
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split("")
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,10 +65,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'data_project.wsgi.application'
 
 # Database
+# Database
+# Database
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))  # Use dj_database_url for production
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",  # Corrected from BASE_DR to BASE_DIR
+    }
 }
 
+
+database_url=os.environ.get("DATABASE_URL")
+DATABASES["default"]=dj_database_url.parse(database_url)
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,6 +110,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Required for deployment
 
 # This helps with serving static files in production using WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Media files (optional if you're handling uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
