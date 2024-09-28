@@ -17,11 +17,13 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 # Allowed hosts — make sure the URL is correct for Render
 # Allowed hosts — make sure the URL is correct for Render
 ALLOWED_HOSTS = [
-    'data-project-ehoz.onrender.com',  # Add this line
+    'data-project-iwkm.onrender.com',  # Add this line
+    'data-project-ehoz.onrender.com',
     'data_project.onrender.com', 
     'localhost', 
     '127.0.0.1'
 ]
+
 
 
 # Application definition
