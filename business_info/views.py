@@ -36,52 +36,78 @@ def add_business(request):
     else:
         return render(request, 'business_info/add_business.html')
 
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Business, ContactPerson
+from django.db.models import Q
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Business, ContactPerson
+from django.db.models import Q
+
 def business_list(request):
-    query = request.GET.get('q', '')
-    filter_town = request.GET.get('town', '')
-    filter_state = request.GET.get('state', '')
-    filter_country = request.GET.get('country', '')
-    filter_type = request.GET.get('type', '')  # Retaining this line from the second change
-    
+    query = request.GET.get('q', '')  # Search query
+    filter_country = request.GET.get('country', '')  # Filter for country
+    filter_state = request.GET.get('state', '')  # Filter for state
+    filter_town = request.GET.get('town', '')  # Filter for town
+    filter_type = request.GET.get('type', '')  # Filter for type
+    filter_level = request.GET.get('level', '')  # Filter for level
+    filter_category = request.GET.get('category', '')  # Filter for category
+
+    # Fetch businesses with filters
     businesses = Business.objects.all()
 
-    # Search functionality
+    # Apply search query
     if query:
-        businesses = businesses.filter(
-            Q(name_of_firm__icontains=query) |
-            Q(town__icontains=query) |
-            Q(website_url__icontains=query)
-        )
+        businesses = businesses.filter(name_of_firm__icontains=query)
 
-    # Filtering functionality
-    if filter_town:
-        businesses = businesses.filter(town__icontains=filter_town)
-    if filter_state:
-        businesses = businesses.filter(state__icontains=filter_state)
+    # Apply filters
     if filter_country:
-        businesses = businesses.filter(country__icontains=filter_country)
+        businesses = businesses.filter(country=filter_country)
+    
+    if filter_state:
+        businesses = businesses.filter(state=filter_state)
+    
+    if filter_town:
+        businesses = businesses.filter(town=filter_town)
+    
     if filter_type:
-        businesses = businesses.filter(type__icontains=filter_type)  # Retaining this line from the second change
+        businesses = businesses.filter(type=filter_type)
+    
+    if filter_level:
+        businesses = businesses.filter(level=filter_level)
+    
+    if filter_category:
+        businesses = businesses.filter(category=filter_category)
 
-    # Get distinct values for filters
-    towns = Business.objects.values_list('town', flat=True).distinct()
-    states = Business.objects.values_list('state', flat=True).distinct()
+    # Get distinct values for dropdowns to populate filters
     countries = Business.objects.values_list('country', flat=True).distinct()
-    types = Business.objects.values_list('type', flat=True).distinct()  # Retaining this line from the second change
+    states = Business.objects.values_list('state', flat=True).distinct()
+    towns = Business.objects.values_list('town', flat=True).distinct()
+    types = Business.objects.values_list('type', flat=True).distinct()
+    levels = Business.objects.values_list('level', flat=True).distinct()
+    categories = Business.objects.values_list('category', flat=True).distinct()
 
-    return render(request, 'business_info/business_list.html', {
-        'businesses': businesses,
+    context = {
         'query': query,
-        'filter_town': filter_town,
-        'filter_state': filter_state,
         'filter_country': filter_country,
-        'filter_type': filter_type,  # Retaining this line from the second change
-        'towns': towns,
-        'states': states,
+        'filter_state': filter_state,
+        'filter_town': filter_town,
+        'filter_type': filter_type,
+        'filter_level': filter_level,
+        'filter_category': filter_category,
+        'businesses': businesses,
         'countries': countries,
-        'types': types  # Retaining this line from the second change
-    })
+        'states': states,
+        'towns': towns,
+        'types': types,
+        'levels': levels,
+        'categories': categories,
+    }
+    return render(request, 'business_info/business_list.html', context)
 
+
+   
+        
 def success_page(request):
     return render(request, 'success.html')
 

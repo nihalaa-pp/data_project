@@ -31,6 +31,7 @@
             border-radius: 4px;
             width: 180px;
             font-size: 14px;
+            
         }
 
         button {
@@ -145,6 +146,7 @@
                 min-width: 120px; /* Set a minimum width */
                 margin-bottom: 10px;
                 height: 40px; /* Adjust height as necessary */
+                
             }
             .search{
                 width: auto; /* Allow flexibility for smaller screens */
@@ -186,33 +188,52 @@
         <input type="text" name="q" placeholder="Search..." class="search" value="{{ query }}">
     
         <select name="country">
-            <option value="">Select Country</option>
-            {% for country in countries %}
-            <option value="{{ country }}" {% if country == filter_country %}selected{% endif %}>{{ country }}</option>
-            {% endfor %}
-        </select>
-    
-        <select name="state">
-            <option value="">Select State</option>
-            {% for state in states %}
-            <option value="{{ state }}" {% if state == filter_state %}selected{% endif %}>{{ state }}</option>
-            {% endfor %}
-        </select>
-    
-        <select name="town">
-            <option value="">Select Town</option>
-            {% for town in towns %}
-            <option value="{{ town }}" {% if town == filter_town %}selected{% endif %}>{{ town }}</option>
-            {% endfor %}
-        </select>
-    
-        <select name="type">
-            <option value="">Select Type</option>
-            {% for type in types %}
-            <option value="{{ type }}" {% if type == filter_type %}selected{% endif %}>{{ type }}</option>
-            {% endfor %}
-        </select>
-    
+        <option value="">Select Country</option>
+        {% for country in countries %}
+            <option value="{{ country }}" {% if filter_country == country %}selected{% endif %}>{{ country }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- State Filter -->
+    <select name="state">
+        <option value="">Select State</option>
+        {% for state in states %}
+            <option value="{{ state }}" {% if filter_state == state %}selected{% endif %}>{{ state }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Town Filter -->
+    <select name="town">
+        <option value="">Select Town</option>
+        {% for town in towns %}
+            <option value="{{ town }}" {% if filter_town == town %}selected{% endif %}>{{ town }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Type Filter -->
+    <select name="type">
+        <option value="">Select Type</option>
+        {% for type in types %}
+            <option value="{{ type }}" {% if filter_type == type %}selected{% endif %}>{{ type }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Level Filter -->
+    <select name="level">
+        <option value="">Select Level</option>
+        {% for level in levels %}
+            <option value="{{ level }}" {% if filter_level == level %}selected{% endif %}>{{ level }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Category Filter -->
+    <select name="category">
+        <option value="">Select Category</option>
+        {% for category in categories %}
+            <option value="{{ category }}" {% if filter_category == category %}selected{% endif %}>{{ category }}</option>
+        {% endfor %}
+    </select>
+
         <button type="submit">Filter</button>
     </form>
     <table>
@@ -232,6 +253,8 @@
                 <th>Designation</th>
                 <th>Phone Number</th> <!-- Phone Number Column -->
                 <th>Email ID</th> <!-- Email ID Column -->
+                <th>Actions</th>
+                
             </tr>
         </thead>
         <tbody>
