@@ -9,7 +9,7 @@ def add_business(request):
             'country': request.POST.get('country'),
             'state': request.POST.get('state'),
             'town': request.POST.get('town'),
-            'house_name': request.POST.get('house_name'),  # Retaining this line from the second change
+            
             'name_of_firm': request.POST.get('name_of_firm'),
             'location': request.POST.get('location'),
             'landmark': request.POST.get('landmark'),

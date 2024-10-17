@@ -22,12 +22,12 @@ class Business(models.Model):
         ('NRI', 'NRI Brand'),
         ('OT', 'Other')
     ]
-    
+    house_name = models.CharField(max_length=100, blank=True)
+    name_of_firm = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     town = models.CharField(max_length=100)
-
-    
+    name_of_firm = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
     landmark = models.CharField(max_length=255)
     website_url = models.URLField(max_length=200)
