@@ -90,12 +90,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'information',  # Your database name
-        'USER': 'admin3',  # Database username
-        'PASSWORD': 'admin@123',  # Database password
-        'HOST': 'localhost',  # Set to 'localhost' for local development
-        'PORT': '',  # Leave empty for default port (5432)
+        'USER': 'admin3',       # Database username
+        'PASSWORD': 'admin@123', # Database password
+        'HOST': 'postgresql://data_nuzz_user:cO3JmfKC0uQJ0r4bVPHInDx8ywOU6HFn@dpg-cs8cbi68ii6s73c86fd0-a.oregon-postgres.render.com/data_nuzz',  # Replace this with Render's database host
+        'PORT': '5432',         # Default PostgreSQL port
     }
 }
+
 
 
 # Password validation
