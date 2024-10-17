@@ -26,6 +26,8 @@ class Business(models.Model):
     country = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     town = models.CharField(max_length=100)
+
+    house_name = models.CharField(max_length=100, blank=True) 
     name_of_firm = models.CharField(max_length=100)
     location = models.CharField(max_length=255)
     landmark = models.CharField(max_length=255)

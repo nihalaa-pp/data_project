@@ -101,12 +101,22 @@ def delete_contact(request, pk):
 
 def login_view(request):
     if request.method == 'POST':
+
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('business_info:add_business')  # Redirect to add_business view
+
+        username = request.POST.get('username')  # Adjust according to your form field names
+        password = request.POST.get('password')  # Adjust according to your form field names
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print("Redirecting to landing page...")
+            return redirect('contacts:landing_page')
+
         else:
             error_message = "Invalid credentials"
     else:
@@ -114,6 +124,19 @@ def login_view(request):
     return render(request, 'contacts/login.html', {'error_message': error_message})
 
 
+
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to the login page or wherever you want
+
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
+
+def landing_page(request):
+    return render(request, 'contacts/landing_page.html')
+
+

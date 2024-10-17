@@ -9,6 +9,7 @@ def add_business(request):
             'country': request.POST.get('country'),
             'state': request.POST.get('state'),
             'town': request.POST.get('town'),
+            'house_name': request.POST.get('house_name'),  # Retaining this line from the second change
             'name_of_firm': request.POST.get('name_of_firm'),
             'location': request.POST.get('location'),
             'landmark': request.POST.get('landmark'),
@@ -40,6 +41,7 @@ def business_list(request):
     filter_town = request.GET.get('town', '')
     filter_state = request.GET.get('state', '')
     filter_country = request.GET.get('country', '')
+    filter_type = request.GET.get('type', '')  # Retaining this line from the second change
     
     businesses = Business.objects.all()
 
@@ -58,11 +60,14 @@ def business_list(request):
         businesses = businesses.filter(state__icontains=filter_state)
     if filter_country:
         businesses = businesses.filter(country__icontains=filter_country)
+    if filter_type:
+        businesses = businesses.filter(type__icontains=filter_type)  # Retaining this line from the second change
 
     # Get distinct values for filters
     towns = Business.objects.values_list('town', flat=True).distinct()
     states = Business.objects.values_list('state', flat=True).distinct()
     countries = Business.objects.values_list('country', flat=True).distinct()
+    types = Business.objects.values_list('type', flat=True).distinct()  # Retaining this line from the second change
 
     return render(request, 'business_info/business_list.html', {
         'businesses': businesses,
@@ -70,9 +75,11 @@ def business_list(request):
         'filter_town': filter_town,
         'filter_state': filter_state,
         'filter_country': filter_country,
+        'filter_type': filter_type,  # Retaining this line from the second change
         'towns': towns,
         'states': states,
-        'countries': countries
+        'countries': countries,
+        'types': types  # Retaining this line from the second change
     })
 
 def success_page(request):

@@ -7,14 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: black;
             margin: 0;
             padding: 20px;
         }
 
         h1, h3 {
             text-align: center;
-            color: #333;
+            color: white;
         }
 
         form {
@@ -53,7 +53,7 @@
         button {
             width: 100%;
             padding: 10px;
-            background-color: #5bc0de;
+            background-color: #333;
             color: white;
             border: none;
             border-radius: 4px;
@@ -62,19 +62,20 @@
         }
 
         button:hover {
-            background-color: #31b0d5;
+            background-color: black;
         }
 
         a {
             display: block;
             text-align: center;
             margin-top: 20px;
-            color: #0275d8;
+            color: #333;
             text-decoration: none;
         }
 
         a:hover {
             text-decoration: underline;
+            color: black;
         }
 
         .logout-link {
@@ -84,7 +85,7 @@
 
         .logout-link a {
             padding: 10px 15px;
-            background-color: green; /* Bootstrap danger color */
+            background-color: green;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -92,7 +93,7 @@
         }
 
         .logout-link a:hover {
-            background-color: #c9302c; /* Darker red on hover */
+            background-color: #c9302c;
         }
 
         /* Media Queries */
@@ -131,9 +132,6 @@
     </style>
 </head>
 <body>
-
-    
-
     <h1>Add Business</h1>
     <form method="POST">
         {% csrf_token %}
@@ -145,6 +143,9 @@
 
         <label for="town">Town:</label>
         <input type="text" name="town" required>
+
+        <label for="house_name">House Name:</label>
+        <input type="text" id="house_name" name="house_name">
 
         <label for="name_of_firm">Name of Firm:</label>
         <input type="text" name="name_of_firm" required>
@@ -180,8 +181,6 @@
             <option value="OT">Other</option>
         </select>
 
-      
-
         <label for="contact_person">Contact Person Name:</label>
         <input type="text" name="contact_person" required>
 
@@ -204,14 +203,10 @@
         <textarea name="remarks"></textarea>
 
         <button type="submit">Add Business</button>
-        <div class="logout-link">
-            {% if user.is_authenticated %}
-                <a href="{% url 'contacts:logout' %}">Logout</a>
-            {% endif %}
-        </div>
-        <a href="{% url 'business_info:business_list' %}">Go to Business List</a>
-        <a href="{% url 'contacts:contact_list' %}" class="btn btn-secondary">Go to Contact List</a>
         
+  
+        
+        <a href="{% url 'contacts:landing_page' %}" class="btn btn-secondary">Back</a>
     </form>
 </body>
 </html>

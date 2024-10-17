@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Business Directory</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Link to your CSS file -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif; /* Changed font to Roboto */
+        }
+
+        /* Body Styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: black; /* Background color */
+            color: #333; /* Dark gray text */
+            text-shadow: none; /* Removed text shadow */
+        }
+
+        /* Header Styling */
+        header {
+            background-color: black; /* Header background */
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid black;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff; /* White text for header */
+        }
+
+        header p {
+            font-size: 1.2em;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9); /* Lightened white */
+        }
+
+        /* Main Content Styling */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        section {
+            background-color: #ffffff; /* White background for section */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            text-align: center;
+            max-width: 600px;
+            width: 100%; /* Responsive width */
+        }
+
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #333; /* Dark gray for section title */
+        }
+
+        section p {
+            font-size: 1em;
+            color: #666; /* Medium gray for section text */
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            background-color: #333; /* Button background color */
+            color: white;
+            font-size: 1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: black; /* Darker color on hover */
+            transform: translateY(-3px);
+        }
+
+        /* Logout Link Styling */
+        .logout-link a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background-color: #dc3545; /* Red for logout button */
+            color: white;
+            font-size: 1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .logout-link a:hover {
+            background-color: #c82333; /* Darker red on hover */
+            transform: translateY(-3px);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: black; /* Dark background for footer */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em; /* Smaller font size for h1 */
+            }
+
+            header p {
+                font-size: 1em; /* Smaller font size for paragraph */
+            }
+
+            main {
+                padding: 20px; /* Reduced padding */
+            }
+
+            section {
+                padding: 20px; /* Reduced padding in section */
+            }
+
+            section h2 {
+                font-size: 1.5em; /* Smaller font size for h2 */
+            }
+
+            section p {
+                font-size: 0.9em; /* Smaller font size for paragraph */
+            }
+
+            .button {
+                padding: 10px 15px; /* Smaller button padding */
+                font-size: 0.9em; /* Smaller button font size */
+            }
+
+            .logout-link a {
+                padding: 8px 15px; /* Smaller logout button padding */
+                font-size: 0.9em; /* Smaller logout button font size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em; /* Smaller font size for very small screens */
+            }
+
+            header p {
+                font-size: 0.9em; /* Smaller font size for very small screens */
+            }
+
+            section {
+                padding: 15px; /* Further reduced padding */
+            }
+
+            section h2 {
+                font-size: 1.3em; /* Smaller font size for h2 */
+            }
+
+            section p {
+                font-size: 0.8em; /* Smaller font size for paragraph */
+            }
+
+            .button {
+                padding: 8px 12px; /* Even smaller button padding */
+                font-size: 0.8em; /* Even smaller button font size */
+            }
+
+            .logout-link a {
+                padding: 6px 12px; /* Smaller logout button padding */
+                font-size: 0.8em; /* Smaller logout button font size */
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Welcome to TownBook</h1>
+        <p>Explore and connect with various businesses in your area.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Get Started</h2>
+            
+            <a href="{% url 'business_info:business_list' %}" class="button">Explore Businesses</a>
+            <a href="{% url 'business_info:add_business' %}" class="button">Add a Business</a>
+            <a href="{% url 'contacts:contact_list' %}" class="button">Explore Contact List</a>
+            <a href="{% url 'contacts:add_contact' %}" class="button">Add New Contact</a>
+            
+            <div class="logout-link">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'contacts:logout' %}">Logout</a>
+                {% endif %}
+            </div>
+            
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TownBook. All rights reserved.</p>
+    </footer>
+</body>
+</html>
