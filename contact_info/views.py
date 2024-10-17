@@ -99,28 +99,25 @@ def delete_contact(request, pk):
         return redirect('contacts:contact_list')
     return render(request, 'contacts/delete_contact.html', {'contact': contact})
 
-def login_view(request):
-    if request.method == 'POST':
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
+def login_view(request):
+    error_message = None  # Initialize error_message at the beginning
+
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        
+        # Authenticate the user
         user = authenticate(request, username=username, password=password)
+        
         if user is not None:
-            login(request, user)
-            return redirect('business_info:add_business')  # Redirect to add_business view
-
-        username = request.POST.get('username')  # Adjust according to your form field names
-        password = request.POST.get('password')  # Adjust according to your form field names
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            print("Redirecting to landing page...")
-            return redirect('contacts:landing_page')
-
+            login(request, user)  # Log in the user
+            return redirect('contacts:landing_page')  # Redirect to landing page
         else:
-            error_message = "Invalid credentials"
-    else:
-        error_message = None
+            error_message = "Invalid credentials"  # Show error message if credentials are invalid
+
     return render(request, 'contacts/login.html', {'error_message': error_message})
 
 
