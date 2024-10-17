@@ -124,7 +124,6 @@ def login_view(request):
     return render(request, 'contacts/login.html', {'error_message': error_message})
 
 
-
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to the login page or wherever you want
