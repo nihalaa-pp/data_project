@@ -3,19 +3,11 @@
 {% block content %}
 
 <div class="contact-container">
-    <h2>Add Contact</h2>
+        <h2>Add Contact</h2>
     <form method="POST" class="contact-form">
         
         {% csrf_token %}
-        
-        {% for field in form %}
-            <div class="form-field">
-                {{ field.label }}<br>
-                {{ field|add_class:"optional" }}  <!-- Ensure that fields are not required -->
-                {{ field.errors }}
-            </div>
-        {% endfor %}
-        
+        {{ form.as_p }}
         <button type="submit" class="submit-button">Submit Contact</button>
         <a href="{% url 'contacts:landing_page' %}" class="cancel-link">Back</a>
     </form>
@@ -44,8 +36,9 @@
     h2 {
         text-align: center;
         color: white;
-        font-size: 60px;
+        font-size:40px;
     }
+   
 
     form {
         display: flex;

@@ -99,7 +99,7 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}  <!-- Render the form fields here -->
-        <button type="submit">Update Business</button>
+        <button type="submit" >Update Business</button>
         <a href="{% url 'business_info:business_list' %}">Cancel</a> 
     </form>
      <!-- Adjust URL name -->
