@@ -3,8 +3,9 @@
 {% block content %}
 
 <div class="contact-container">
-    <form method="POST" class="contact-form">
         <h2>Add Contact</h2>
+    <form method="POST" class="contact-form">
+        
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="submit-button">Submit Contact</button>
@@ -34,9 +35,10 @@
 
     h2 {
         text-align: center;
-        color: black;
-        margin-bottom: 20px;
+        color: white;
+        font-size:60px;
     }
+   
 
     form {
         display: flex;

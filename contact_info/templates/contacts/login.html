@@ -57,6 +57,11 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #333; /* Change border color on focus */
         }
 
         button {
@@ -84,7 +89,12 @@
         /* Media Queries */
         @media (max-width: 768px) {
             .login-container {
-                padding: 15px;
+                padding: 30px;
+            }
+
+            input {
+                padding: 10px; /* Set consistent padding for input */
+                font-size: 10px; /* Slightly increase font size */
             }
 
             button {
@@ -103,7 +113,12 @@
 
         @media (max-width: 480px) {
             .login-container {
-                padding: 10px;
+                padding: 30px;
+            }
+
+            input {
+                padding: 10px; /* Ensure consistent input padding */
+                font-size: 10px; /* Adjust font size */
             }
 
             button {

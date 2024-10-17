@@ -99,7 +99,7 @@
         /* Media Queries */
         @media (max-width: 768px) {
             form {
-                padding: 15px;
+                padding: 30px;
             }
 
             button {
@@ -118,7 +118,7 @@
 
         @media (max-width: 480px) {
             form {
-                padding: 10px;
+                padding: 30px;
             }
 
             button {
@@ -136,31 +136,31 @@
     <form method="POST">
         {% csrf_token %}
         <label for="country">Country:</label>
-        <input type="text" name="country" required>
+        <input type="text" name="country">
 
         <label for="state">State:</label>
-        <input type="text" name="state" required>
+        <input type="text" name="state">
 
         <label for="town">Town:</label>
-        <input type="text" name="town" required>
+        <input type="text" name="town">
 
-        <label for="house_name">House Name:</label>
-        <input type="text" id="house_name" name="house_name">
+
 
         <label for="name_of_firm">Name of Firm:</label>
-        <input type="text" name="name_of_firm" required>
+        <input type="text" name="name_of_firm">
 
         <label for="location">Location:</label>
-        <input type="text" name="location" required>
+        <input type="text" name="location">
 
         <label for="landmark">Landmark:</label>
         <input type="text" name="landmark">
 
         <label for="website_url">Website URL:</label>
-        <input type="url" name="website_url">
+        <input type="text" name="website_url">
+
 
         <label for="level">Level:</label>
-        <select name="level" required>
+        <select name="level">
             <option value="HO">Head Office</option>
             <option value="BR">Branch</option>
             <option value="SA">Stand Alone</option>
@@ -171,7 +171,7 @@
         <input type="text" name="type">
 
         <label for="category">Category:</label>
-        <select name="category" required>
+        <select name="category">
             <option value="GCB">Global Corporate Brand</option>
             <option value="CB">Corporate Brand</option>
             <option value="RB">Regional Brand</option>
@@ -182,30 +182,28 @@
         </select>
 
         <label for="contact_person">Contact Person Name:</label>
-        <input type="text" name="contact_person" required>
+        <input type="text" name="contact_person">
 
         <label for="designation">Designation:</label>
-        <input type="text" name="designation" required>
+        <input type="text" name="designation">
 
         <label for="native_town">Native Town:</label>
         <input type="text" name="native_town">
 
         <label for="mobile_number">Mobile Number:</label>
-        <input type="text" name="mobile_number" required>
+        <input type="text" name="mobile_number">
 
         <label for="whatsapp_number">WhatsApp Number:</label>
         <input type="text" name="whatsapp_number">
 
         <label for="email">Email:</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email">
 
         <label for="remarks">Remarks:</label>
         <textarea name="remarks"></textarea>
 
         <button type="submit">Add Business</button>
-        
-  
-        
+
         <a href="{% url 'contacts:landing_page' %}" class="btn btn-secondary">Back</a>
     </form>
 </body>
