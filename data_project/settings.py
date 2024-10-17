@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'data_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'information',  # Your database name
-        'USER': 'admin3',       # Database username
-        'PASSWORD': 'admin@123', # Database password
-        'HOST': 'postgresql://data_nuzz_user:cO3JmfKC0uQJ0r4bVPHInDx8ywOU6HFn@dpg-cs8cbi68ii6s73c86fd0-a.oregon-postgres.render.com/data_nuzz',  # Replace this with Render's database host
-        'PORT': '5432',         # Default PostgreSQL port
+        'NAME': 'data_nuzz',  # Your database name
+        'USER': 'data_nuzz_user',  # Database username
+        'PASSWORD': 'cO3JmfKC0uQJ0r4bVPHInDx8ywOU6HFn',  # Database password
+        'HOST': 'dpg-cs8cbi68ii6s73c86fd0-a.oregon-postgres.render.com',  # Database host
+        'PORT': '5432',  # Default PostgreSQL port
     }
 }
 
