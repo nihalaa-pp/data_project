@@ -215,14 +215,12 @@
     
         <button type="submit">Filter</button>
     </form>
-    
     <table>
         <thead>
             <tr>
                 <th>Country</th>
                 <th>State</th>
                 <th>Town</th>
-                
                 <th>Name of Firm</th>
                 <th>Location</th>
                 <th>Landmark</th>
@@ -230,11 +228,10 @@
                 <th>Level</th>
                 <th>Type</th>
                 <th>Category</th>
-                <th>Actions</th>
                 <th>Contact Person Name</th>
                 <th>Designation</th>
-                <th>Mobile Number</th>
-                <th>Email</th>
+                <th>Phone Number</th> <!-- Phone Number Column -->
+                <th>Email ID</th> <!-- Email ID Column -->
             </tr>
         </thead>
         <tbody>
@@ -247,7 +244,6 @@
                                     <td>{{ business.country }}</td>
                                     <td>{{ business.state }}</td>
                                     <td>{{ business.town }}</td>
-                                    
                                     <td>{{ business.name_of_firm|default:"N/A" }}</td>
                                     <td>{{ business.location }}</td>
                                     <td>{{ business.landmark }}</td>
@@ -258,10 +254,10 @@
                                 {% else %}
                                     <td colspan="10"></td> <!-- Empty for subsequent contacts -->
                                 {% endif %}
-                                <td>{{ contact.name|default:"N/A" }}</td>
-                                <td>{{ contact.designation|default:"N/A" }}</td>
-                                <td>{{ contact.mobile_number|default:"N/A" }}</td>
-                                <td>{{ contact.email|default:"N/A" }}</td>
+                                <td>{{ contact.name|default:"N/A" }}</td> <!-- Contact Person Name -->
+                                <td>{{ contact.designation|default:"N/A" }}</td> <!-- Designation -->
+                                <td>{{ contact.mobile_number|default:"N/A" }}</td> <!-- Phone Number -->
+                                <td>{{ contact.email|default:"N/A" }}</td> <!-- Email ID -->
                                 <td>
                                     <a href="{% url 'business_info:edit_business' business.id %}">Edit</a> | 
                                     <a href="{% url 'business_info:delete_business' business.id %}">Delete</a>
@@ -295,6 +291,7 @@
             {% endif %}
         </tbody>
     </table>
+    
     
     
     <a href="{% url 'contacts:landing_page' %}" class="back-button">Back</a>
