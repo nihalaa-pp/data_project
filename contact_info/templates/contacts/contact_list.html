@@ -42,7 +42,7 @@
             <option value="{{ stat }}" {% if stat == selected_status %}selected{% endif %}>{{ stat }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Search</button>
+    <button type="submit">Filter</button>
 </form>
 
 <table class="contact-table">
@@ -103,6 +103,7 @@
         background-color: black;
         margin: 0;
         padding: 20px;
+        
     }
 
     h2 {
@@ -168,19 +169,23 @@
         border: 1px solid #ddd;
         padding: 12px;
         text-align: left;
+        font-size:16px;
     }
 
     th {
         background-color: #f2f2f2;
         color: #333;
+        font-size:16px;
     }
 
     td {
         color: #555;
+        font-size:16px;
     }
 
     tr:nth-child(even) {
         background-color: #f9f9f9;
+        font-size:16px;
     }
 
     .add-contact-button {
@@ -199,8 +204,18 @@
 
     /* Media Queries */
     @media (max-width: 768px) {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 20px;
+           
+            
+        }
         .contact-table {
-            font-size: 1em; /* Adjusted for readability */
+            font-size: 10px; /* Adjusted for readability */
+            flex-wrap: nowrap;  /* Prevent wrapping */
+            justify-content: flex-start;
         }
 
         .contact-table th, .contact-table td {
@@ -213,13 +228,23 @@
         }
 
         h2 {
-            font-size: 2em; /* Increased heading size */
+            font-size: 5px; /* Increased heading size */
         }
     }
 
     @media (max-width: 480px) {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 20px;
+            
+            
+        }
         .contact-table {
-            font-size: 0.9em; /* Adjusted for readability */
+            font-size: 10px; /* Adjusted for readability */
+            flex-wrap: nowrap;  /* Prevent wrapping */
+            justify-content: flex-start;
         }
 
         .add-contact-button {
